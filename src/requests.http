@@ -1,0 +1,2 @@
+# пример GET запроса
+GET http://api.valantis.store:40000/?=get_ids
