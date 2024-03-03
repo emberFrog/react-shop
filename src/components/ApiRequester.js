@@ -55,6 +55,19 @@ const ApiRequester = ({ onItemsLoaded }) => {
 
 				const dataItems = await responseItems.json()
 				onItemsLoaded(dataItems.result)
+
+				// Обработка дубликатов по id
+				const uniqueItems = dataItems.result.reduce(
+					(acc, current) => {
+						if (!acc.ids.has(current.id)) {
+							acc.ids.add(current.id)
+							acc.items.push(current)
+						}
+						return acc
+					},
+					{ ids: new Set(), items: [] }
+				).items
+				onItemsLoaded(uniqueItems)
 			} catch (error) {
 				console.error('Ошибка при запросе данных:', error)
 			}
