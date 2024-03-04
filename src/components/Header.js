@@ -6,10 +6,10 @@ export default function Header() {
 			<div>
 				<span className='logo'>Valantis Jewelry</span>
 				<ul className='nav'>
-					<li>12</li>
-					<li>13</li>
-					<li>14</li>
-					<li>15</li>
+					<li>Каталог</li>
+					<li>Ремонт</li>
+					<li>О нас</li>
+					<li>Контакты</li>
 				</ul>
 			</div>
 			<div className='presentation'></div>
