@@ -1,9 +1,6 @@
-import React, { useState } from 'react'
-import { FaBookmark } from 'react-icons/fa'
+import React from 'react'
 
 export default function Header() {
-	let [markOpen, setMarkOpen] = useState(false)
-
 	return (
 		<header>
 			<div>

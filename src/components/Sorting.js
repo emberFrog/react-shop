@@ -5,7 +5,7 @@ export class Sorting extends Component {
 		super(props)
 		this.state = {
 			sortOptions: [
-				{ key: 'all', name: 'Показать всё' },
+				{ key: 'all', name: 'Сбросить фильтры' },
 				{ key: 'priceAsc', name: 'По возрастанию цены' },
 				{ key: 'priceDesc', name: 'По понижению цены' },
 				{ key: 'nameAsc', name: 'По алфавиту названия' },
