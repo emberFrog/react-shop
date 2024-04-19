@@ -19,7 +19,13 @@ export class Sorting extends Component {
 		return (
 			<div className='sorting'>
 				{this.state.sortOptions.map((option, index) => (
-					<div key={index} onClick={() => this.props.sortItems(option.key)}>
+					<div
+						key={index}
+						onClick={() => {
+							this.props.sortItems(option.key)
+							this.props.changePage(1)
+						}}
+					>
 						{option.name}
 					</div>
 				))}

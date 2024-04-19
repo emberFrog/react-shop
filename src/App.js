@@ -11,13 +11,32 @@ class App extends React.Component {
 		this.state = {
 			currentItems: [],
 			items: [],
+			currentPage: 1,
+			itemsPerPage: 50,
 		}
 		this.sortItems = this.sortItems.bind(this)
+		this.changePage = this.changePage.bind(this)
 	}
 
 	handleItemsLoaded = items => {
-		this.setState({ items })
-		this.setState({ currentItems: items })
+		this.setState({ items, currentItems: items, currentPage: 1 }, () => {
+			this.calculateTotalPages()
+		})
+	}
+
+	calculateTotalPages() {
+		const { items, itemsPerPage } = this.state
+		const totalPages = Math.ceil(items.length / itemsPerPage)
+		this.setState({ totalPages })
+	}
+
+	changePage = page => {
+		const { items, itemsPerPage } = this.state
+		const currentItems = items.slice(
+			(page - 1) * itemsPerPage,
+			page * itemsPerPage
+		)
+		this.setState({ currentItems, currentPage: page })
 	}
 
 	sortItems(sortType) {
@@ -60,16 +79,26 @@ class App extends React.Component {
 			default:
 				sortedItems = this.state.items
 		}
-		this.setState({ currentItems: sortedItems })
+		this.setState({ currentItems: sortedItems, currentPage: 1 }, () => {
+			this.calculateTotalPages()
+		})
 	}
 
 	render() {
+		const { currentPage, totalPages } = this.state
 		return (
 			<div className='wrapper'>
 				<Header />
 				<ApiRequester onItemsLoaded={this.handleItemsLoaded} />
-				<Sorting sortItems={this.sortItems} />
+				<Sorting sortItems={this.sortItems} changePage={this.changePage} />
 				<Items items={this.state.currentItems} />
+				<div className='pagination'>
+					{Array.from({ length: totalPages }, (_, index) => (
+						<button key={index} onClick={() => this.changePage(index + 1)}>
+							{index + 1}
+						</button>
+					))}
+				</div>
 				<Footer />
 			</div>
 		)
